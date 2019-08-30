@@ -148,6 +148,7 @@ class SceneMain extends Phaser.Scene {
         if (this.target.x > game.config.width) {
             this.target.setVelocityX(-this.speed);
         }
+        console.log(this.target);
         if (this.target.x < 0) {
             this.target.setVelocityX(this.speed);
         }
