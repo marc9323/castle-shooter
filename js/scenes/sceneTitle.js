@@ -2,12 +2,9 @@ class SceneTitle extends Phaser.Scene {
     constructor() {
         super('SceneTitle');
     }
-    preload() {
-        
-    }
+    preload() {}
     create() {
-       
-        this.back = this.add.image(0, 0, "titleBack");
+        this.back = this.add.image(0, 0, 'titleBack');
         this.back.setOrigin(0, 0);
         this.back.displayWidth = game.config.width;
         this.back.displayHeight = game.config.height;
@@ -16,24 +13,24 @@ class SceneTitle extends Phaser.Scene {
             rows: 11,
             cols: 11
         });
-      //  this.aGrid.showNumbers();
-       
+        //  this.aGrid.showNumbers();
+
         //
         //
         //
         this.titleText = this.add.text(0, 0, mt.model.gameTitle, {
             fontSize: game.config.width / 10,
-            color: "#ff0000"
+            color: '#ff0000'
         });
         //
         //
         this.btnStart = new TextButton({
             scene: this,
-            key: "green",
+            key: 'green',
             event: mt.constants.START_GAME,
             params: this.scene,
-            text: "Start Game",
-            scale: .35,
+            text: 'Start Game',
+            scale: 0.35,
             textScale: 30,
             textColor: '#000000'
         });
@@ -43,27 +40,25 @@ class SceneTitle extends Phaser.Scene {
         //
         this.btnInstr = new TextButton({
             scene: this,
-            key: "blue",
+            key: 'red',
             event: mt.constants.SHOW_INSTR,
             params: this.scene,
-            text: "How to Play",
-            scale: .35,
+            text: 'How to Play',
+            scale: 0.35,
             textScale: 30,
             textColor: '#000000'
         });
         this.aGrid.placeAtIndex(35, this.btnInstr);
         this.btnSettings = new TextButton({
             scene: this,
-            key: "orange",
+            key: 'orange',
             event: mt.constants.SHOW_SETTINGS,
             params: this.scene,
-            text: "Settings",
-            scale: .35,
+            text: 'Settings',
+            scale: 0.35,
             textScale: 30,
             textColor: '#000000'
         });
         this.aGrid.placeAtIndex(85, this.btnSettings);
-
-
     }
 }

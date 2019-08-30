@@ -10,6 +10,7 @@ class SceneLoad extends Phaser.Scene {
         this.progText.setOrigin(0.5, 0.5);
         Align.center(this.progText);
         Effect.preload(this, mt.model.effectNumber);
+        Effect.preload(this, mt.model.explode);
         this.load.on('progress', this.showProgress, this);
         this.load.image('btnStart', 'images/btnStart.png');
         this.load.image('titleBack', 'images/titleBack.jpg');
@@ -29,7 +30,8 @@ class SceneLoad extends Phaser.Scene {
         this.load.image('arrow', 'images/arrow.png');
         this.load.image('back', 'images/back.jpg');
         this.load.image('target', 'images/target.png');
-        this.load.image('block', 'images/block.png');
+        this.load.image('block', 'images/knight.png');
+        this.load.image('wall', 'images/wall.png');
 
         this.load.audio('swish1', 'audio/audio/swish1.wav');
         this.load.audio('swish2', 'audio/audio/swish2.wav');

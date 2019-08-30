@@ -9,6 +9,7 @@ class Model {
         this.gameTitle = 'Archer';
         this.instructionText = 'Shoot the traget as many times as you can.';
         this.effectNumber = 13;
+        this.explode = 16;
     }
     set musicOn(val) {
         this._musicOn = val;

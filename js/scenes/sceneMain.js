@@ -4,6 +4,7 @@ class SceneMain extends Phaser.Scene {
     }
     preload() {}
     create() {
+        this.checkFlag = false;
         mt.mediaManager.setBackground('background'); // not working
         this.arrowGroup = this.physics.add.group();
         this.arrowCount = 100;
@@ -23,6 +24,11 @@ class SceneMain extends Phaser.Scene {
             cols: 11
         });
         //this.aGrid.showNumbers();
+
+        this.wall = this.add.image(0, 0, 'wall');
+        Align.scaleToGameW(this.wall, 1);
+        this.wall.x = game.config.width / 2;
+        this.wall.y = this.wall.displayHeight / 2;
 
         this.target = this.physics.add.sprite(0, 0, 'target');
         Align.scaleToGameW(this.target, 0.2);
@@ -114,8 +120,14 @@ class SceneMain extends Phaser.Scene {
         if (this.score == 20) {
             this.addBlock(68);
         }
+        if (this.score == 40) {
+            Align.scaleToGameW(this.target, 0.15);
+        }
         if (this.score == 50) {
             this.addBlock(22);
+        }
+        if (this.score == 60) {
+            Align.scaleToGameW(this.target, 0.1);
         }
 
         mt.mediaManager.playSound('hit');
@@ -142,6 +154,8 @@ class SceneMain extends Phaser.Scene {
         } else {
             mt.mediaManager.playSound('swish2');
         }
+
+        //TODO: if arrowCount < 10 replace arrow sound swish with a popping sound
     }
 
     update() {
@@ -182,7 +196,42 @@ class SceneMain extends Phaser.Scene {
             this.arrowCount == 0 &&
             this.arrowGroup.children.entries.length == 0
         ) {
-            this.scene.start('SceneOver');
+            this.checkWin();
         }
+    }
+
+    checkWin() {
+        if (this.checkFlag == true) {
+            return;
+        }
+        this.checkFlag = true;
+        mt.mediaManager.stopMusic();
+        if (this.score < 5) {
+            this.scene.start('SceneOver');
+        } else {
+            var exp = new Effect({
+                scene: this,
+                effectNumber: mt.model.explode
+            });
+            exp.x = this.wall.x;
+            exp.y = this.wall.y;
+            this.tweens.add({
+                targets: this.wall,
+                duration: 4000,
+                alpha: 0
+            });
+            // play game over sound
+            // mt.mediaManager.playSound('KABOOM');
+            this.time.addEvent({
+                delay: 3000,
+                callback: this.doGameOver(),
+                loop: false,
+                callbackScope: this
+            });
+        }
+    }
+
+    doGameOver() {
+        this.scene.start('SceneOver');
     }
 }
